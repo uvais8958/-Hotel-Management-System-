@@ -18,9 +18,14 @@ font-family: sans-serif;
     font-size: 22px !important;
     font-weight: bold;
 }
-.btn{
+.action-btn{
     background-image: linear-gradient(#306f88,#6bb8e9);
     border: none !important;
     box-shadow: none !important;
     font-size: 22px !important;
+}
+
+.nav-tabs .nav-link.active{
+    background-image: linear-gradient(#306f88,#6bb8e9);
+    color: white !important;
 }
