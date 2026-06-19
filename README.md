@@ -60,4 +60,6 @@ HotelProject/
 ![book-image](assets/screenshorts/book.jpeg)
 ![registration-Data](assets/screenshorts/DumiData.jpeg)
 ![formWindow](assets/screenshorts/registrationFormWindow%20(1).jpeg)
+![filled_data](assets/screenshorts/filled_data.jpeg)
+![confirmedData](assets/screenshorts/confirmData.jpeg)
 

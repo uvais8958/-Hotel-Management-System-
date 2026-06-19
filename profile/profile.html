@@ -12,7 +12,7 @@
 <!-- end css link -->
  <!-- start js link -->
   <script src="../js/bootstrap.js"></script>
-  <script type="module" src="../js/sweetalert.js"></script>
+  <script  src="../js/sweetalert.js"></script>
     <title>Profile</title>
 </head>
 <body>
@@ -94,6 +94,7 @@
                         </div>
                      <br>
                      <br>
+                     <br>
                          <div>
                     <h1>All Booking Data</h1>
                     <table class="table table-striped text-center">
@@ -106,34 +107,15 @@
                                 <th>CheckIn</th>
                                 <th>CheckOut</th>
                                 <th>Total person</th>
+                                <th>Mobile</th>
+                                <th>Price</th>
                                 <th>Notice</th>
                                 <th>Register Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                         <tr>
-                               <td>1</td>
-                            <td>Mumbai</td>
-                            <td>15</td>
-                            <td>Zuber Khan</td>
-                            <td>12-06-2026</td>
-                            <td>15-06-2026</td>
-                            <td>5</td>
-                            <td>All Includes</td>
-                            <td>12-06-2026</td>
-                            <td>
-                            <button class="btn p-1 px-2 btn-primary" >
-                             <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="btn p-1 px-2 text-white btn-info" >
-                                <i class="fa  fa-check"></i>
-                            </button>
-                            <button class="btn p-1 px-2 btn-danger" >
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            </td>
-                         </tr>
+                        <tbody class="booking-list">
+                      
                         
                         </tbody>
                     </table>
@@ -156,44 +138,56 @@
           <div class="modal-header">
         <h5>Registration From</h5>
         <!-- close btn -->
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+        <button type="button" class="btn-close b-model-close-btn" data-bs-dismiss="modal" aria-label="close"></button>
     </div>
 
     <div class="body-body p-4">
-      <form class="reg-form">
+      <form class="booking-form">
         <div class="row">
-            <div class="col-md-6">   <div class="col-md-6"> <input type="text" class="form-control mb-3" placeholder="Fullname"></div></div>
-            <div class="col-md-6">   <div class="col-md-6"> <input type="text" class="form-control mb-3" placeholder="Location"></div></div>
+             <div class="col-md-6">
+                 <input required name="fullName"  type="text" class="form-control mb-3" placeholder="Fullname">
+                </div>
+             
+                <div class="col-md-6">
+                 <input  required name="location" type="text" class="form-control mb-3" placeholder="Location">
+                </div>
         </div>
      <div class="row mb-3">
-           <div class="col-md-6"> <input type="text" class="form-control mb-3" placeholder="Room No."></div>
-        <div class="col-md-6"> <input type="text" class="form-control mb-3" placeholder="Total person"></div>
+           <div class="col-md-6"> <input  required name="roomNo." type="text" class="form-control mb-3" placeholder="Room No."></div>
+        <div  class="col-md-6"> <input required name="totalPerson" type="text" class="form-control mb-3" placeholder="Total person"></div>
      </div>
      <div class="row mb-3">
            <div class="col-md-6">
             <label>
                 Check in date
             </label>
-            <input type="date" class="form-control mb-3" ></div>
+            <input  required name="checkInDate"type="date" class="form-control mb-3" ></div>
         <div class="col-md-6">
             <label>
                 Check out date
             </label> 
-            <input type="date" class="form-control mb-3" ></div>
+            <input required name="checkOutDate" type="date" class="form-control mb-3" ></div>
      </div>
 
      <div class="row mb-3">
-           <div class="col-md-6"> <input type="number" class="form-control mb-3" placeholder="Price"></div>
-        <div class="col-md-6"> <input type="number" class="form-control mb-3" placeholder="Mobile"></div>
+           <div class="col-md-6">
+            
+            <input required name="price" type="number" class="form-control mb-3" placeholder="Price"></div>
+        <div class="col-md-6">
+            
+            <input  required name="mobile" 
+            
+             type="number" class="form-control mb-3" placeholder="Mobile"></div>
      </div>
 
 
      <div class="row mb-3">
-           <textarea  class="form-control" placeholder="Notice"></textarea>
+           <textarea required name="notice" class="form-control" placeholder="Notice"></textarea>
      </div>
 
      <div class="row mb-3">
-        <button class="btn action-btn text-white fw-bold">Registration</button>
+        <button  type= "submit" class=" action-btn text-white fw-bold>Registration">Registration</button>
+        <button  type= "button" class="btn d-none  bg-danger text-white fw-bold">Updated</button>
      </div>
       </form>
     </div>
