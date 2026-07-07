@@ -4,16 +4,26 @@
 let userInfo;
 let user;
 let allBookingData=[];
+let allInHouseData=[];
 let navBar=document.querySelector(".navbar-brand");
 let logOutBtn=document.querySelector(".logout-btn");
 let bookingForm=document.querySelector(".booking-form");
 let allBInput=bookingForm.querySelectorAll("input");
 let bookingTextArea=bookingForm.querySelector("textarea");
-let bookingCloseBtn=document.querySelector(".b-model-close-btn");
+let modelCloseBtn=document.querySelector(".btn-close");
 let bListTBody=document.querySelector(".booking-list");
-let bRegBtn=document.querySelector(".b-registration-btn")
-//check user is login or not
+let bRegBtn=document.querySelector(".b-registration-btn");
+//inHouse selectors
+let inhouseForm=document.querySelector(".inhouse-form");
+let allInHouseInput=inhouseForm.querySelectorAll("input");
+let inHouseTextArea=inhouseForm.querySelector("textarea");
+let inHouseListTBody=document.querySelector(".inhouse-list");
 
+
+console.log(modelCloseBtn);
+console.log(allInHouseInput);
+//check user is login or not
+console.log(modelCloseBtn);
 if(sessionStorage.getItem("user")==null){
     window.location="../index.html";
 }
@@ -32,6 +42,27 @@ const fetchData=(key)=>{
    }
 }
 
+console.log(allInHouseData);
+//Registration coding
+
+const resgisTrationFunc=(textarea,inputs,array,key)=>{
+      let data={
+      notice:textarea.value,
+      createdAt: new Date()      
+}
+
+   for(let el of inputs){
+      let key=el.name;
+      let value=el.value;
+      data[key]=value;
+   }
+
+   array.push(data);
+   localStorage.setItem(key,JSON.stringify(array));
+   swal("Good job !","Booking Success",'success');
+  
+}
+
 
 
 //formate date function
@@ -48,7 +79,13 @@ const formatDate=(data,isTime)=>{
    return (`${dd}-${mm}-${yy} ${isTime ? time:''}`);
   
 }
-allBookingData=fetchData(user+"_allBookingData");//
+
+
+allBookingData=fetchData(user+"_allBookingData");
+allInHouseData=fetchData(user+"_allInHouseData");
+console.log(allInHouseData);
+
+
 
 
 
@@ -70,24 +107,22 @@ logOutBtn.onclick=()=>{
 //start booking data
 bookingForm.onsubmit=(e)=>{
    e.preventDefault();
-   let data={
-      notice:bookingTextArea.value,
-      createdAt: new Date()
-
-      
-}
-   for(let el of allBInput){
-      let key=el.name;
-      let value=el.value;
-      data[key]=value;
-   }
-   allBookingData.push(data);
-   localStorage.setItem(user+"_allBookingData",JSON.stringify(allBookingData));
-   swal("Good job !","Booking Success",'success');
-   bookingForm.reset('');
-   bookingCloseBtn.click();
+   resgisTrationFunc(bookingTextArea,allBInput,allBookingData,user+"_allBookingData");
+     bookingForm.reset('');
+   modelCloseBtn[0].click();
    showBookingData();
 }
+
+//inhouse data form
+inhouseForm.onsubmit=(e)=>{
+   e.preventDefault();
+   resgisTrationFunc(inHouseTextArea,allInHouseInput,allInHouseData,user+"_allInHouseData");
+     inhouseForm.reset('');
+   modelCloseBtn[1].click();
+
+}
+
+
 
 
 //booking delete coding
@@ -132,16 +167,37 @@ const updateDataFunction=()=>{
          let allBBtn=bookingForm.querySelectorAll("button");
          allBBtn[0].classList.add("d-none");
          allBBtn[1].classList.remove("d-none");
-         let tr=btn.parentElement.parentElement;
-         let allTd=tr.querySelectorAll("td");
-         
-         //update data for user
-         allBInput[0].value=allTd[3].innerHTML;
-         allBInput[1].value=allTd[1].innerHTML;
-         allBInput[2].value=allTd[2].innerHTML;
-         allBInput[3].value=allTd[6].innerHTML;
-         allBInput[4].value=allTd[4].innerHTML;
-         allBInput[5].value=allTd[6]
+       
+         let obj=allBookingData[index];
+         allBInput[0].value=obj.fullName;
+         allBInput[1].value=obj.location;
+         allBInput[2].value=obj.roomNo;
+         allBInput[3].value=obj.totalPerson;
+         allBInput[4].value=obj.checkInDate;
+         allBInput[5].value=obj.checkOutDate;
+         allBInput[6].value=obj.price;
+         allBInput[7].value=obj.mobile;
+         bookingTextArea.value=obj.notice;
+
+         allBBtn[1].onclick=()=>{
+            let formData={
+               notice:bookingTextArea.value,
+               createdAt:new Date(),
+            }
+                    for(el of allBInput){
+                     let key=el.name;
+                     let value=el.value;
+                     formData[key]=value;
+                    }
+                    console.log(formData);
+                           allBookingData[index]=formData;
+                           allBBtn[0].classList.remove("d-none");
+                           allBBtn[1].classList.add("d-none");
+                           bookingForm.reset('');
+                           bookingCloseBtn.click();
+                          localStorage.setItem(user+"_allBookingData",JSON.stringify(allBookingData));
+                           showBookingData();
+         }
 
          
 
@@ -153,9 +209,9 @@ const updateDataFunction=()=>{
 
 
 //show booking data
-const showBookingData=()=>{
-   
-  allBookingData.forEach((item,index)=>{
+const showData=(element,array)=>{
+   element.innerHTML="";
+  array.forEach((item,index)=>{
    bListTBody.innerHTML +=` <tr>
                                <td>${index+1}</td>
                             <td class="text-nowrap">${item.location}</td>
@@ -186,7 +242,8 @@ deleteBtnDataFunc();
 updateDataFunction();
   
 }
-showBookingData()
+showData(bListTBody,allBookingData)
+showData(inHouseListTBody,allInHouseData);
 
 
 
